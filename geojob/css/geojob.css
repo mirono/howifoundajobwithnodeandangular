@@ -1,0 +1,20 @@
+.container {
+    width: 1260px;
+}
+
+.companylist {
+    width: 20%;
+    float: left;
+}
+
+.companydetails {
+    width: 20%;
+    float: right;
+}
+
+.angular-google-map-container {
+    height: 400px;
+    width: 55%;
+    margin: 1%;
+    float: left;
+}

@@ -1,0 +1,45 @@
+<html ng-app="geojob">
+<head>
+  <title>GeoJob Finder - Bootstrap GeoJob</title>
+  <link rel="stylesheet" href="bootstrap-3.1.1-dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="bootstrap-3.1.1-dist/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="css/geojob.css" />
+</head>
+<body>
+  <section class="container"  ng-controller="JobsController">
+    <div class="header"><h1>GeoJob Finder <small>Bootstrap GeoJob</small></h1></div>
+    <div class="well well-sm">We have a total of: {{jobs.total_rows}} jobs</div>
+    <div class="list-group companylist">
+      <a href="#" class="list-group-item" ng-class="{active : isSelected(job)}" ng-repeat="job in jobs.rows" ng-click="setCompany(job)">{{job.key}}</a>
+    </div>
+    <google-map center="map.center" zoom="map.zoom" draggable="{{map.draggable}}">
+      <div ng-repeat="job in filtered = (jobs.rows)">
+    	<marker coords="{latitude: job.value.lat, longitude: job.value.lon}" events="markersEvents" showWindow="false">
+    	  <window>
+    	  <p>{{job.key}}</p>
+    	  <p>{{job.value.employees}}</p>
+    	  </window>
+    	</marker>
+        <circle center="{latitude: job.value.lat, longitude: job.value.lon}" stroke="circle.stroke" fill="circle.fill" radius="getRadius(job)"
+           visible="circle.visible" geodesic="circle.geodesic" editable="circle.editable" draggable="circle.draggable" clickable="circle.clickable"></circle>
+      </div>
+    </google-map>
+    <div class="panel panel-default companydetails">
+      <div class="panel-body">
+        Name: <span style="float: right">{{company.key}}</span><br>
+        <span style="float: right">{{company.value.name}}</span><br>
+        Sector: <span style="float: right">{{company.value.sector}}</span><br>
+        Employees: <span style="float: right">{{company.value.employees}}</span><br>
+        Area: <span style="float: right">{{company.value.area}}</span><br>
+        Location Name: <span style="float: right">{{company.value.locationName}}</span><br>
+        Location Area: <span style="float: right">{{company.value.locationArea}}</span><br>
+      </div>
+    </div>
+  </section>
+  <script type="text/javascript" src="js/angular.min.js"></script>
+  <script type="text/javascript" src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+  <script type="text/javascript" src='js/lodash.underscore.min.js'></script>
+  <script type="text/javascript" src='js/angular-google-maps.min.js'></script>
+  <script type="text/javascript" src="js/geojob-app.js"></script>
+</body>
+</html>
